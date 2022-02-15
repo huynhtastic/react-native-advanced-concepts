@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Deck } from "./src/Deck";
+import { CardData } from './src/types';
 
-const DATA = [
+const DATA: CardData[] = [
   {
     id: 1,
     text: "Card #1",
@@ -45,10 +46,14 @@ const DATA = [
   },
 ];
 
+const renderItem = (item: CardData) => {
+  return <Text key={item.id}>{item.text}</Text>
+}
+
 export default function App() {
   return (
     <View style={styles.container}>
-      <Deck />
+      <Deck data={DATA} renderItem={renderItem} />
       <StatusBar style="auto" />
     </View>
   );
