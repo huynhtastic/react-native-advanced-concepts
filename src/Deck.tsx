@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { Animated, View } from "react-native";
+import React, { useCallback, useRef } from "react";
+import { Animated, View, PanResponder } from "react-native";
 import { CardData } from "./types";
 
 interface Props {
@@ -8,6 +8,18 @@ interface Props {
 }
 
 export const Deck: React.FC<Props> = ({ renderItem, data, ...props }) => {
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => {
+        return true;
+      },
+      onPanResponderMove: (event, gesture) => {
+        console.log(gesture);
+      },
+      onPanResponderRelease: () => {},
+    })
+  ).current;
+
   const renderCards = useCallback(() => {
     return data.map(renderItem);
   }, [renderItem, data]);
