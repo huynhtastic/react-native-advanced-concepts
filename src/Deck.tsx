@@ -16,17 +16,29 @@ export const Deck: React.FC<Props> = ({ renderItem, data, ...props }) => {
         return true;
       },
       onPanResponderMove: (event, gesture) => {
-        position.setValue({x: gesture.dx, y: gesture.dy})
+        position.setValue({ x: gesture.dx, y: gesture.dy });
       },
       onPanResponderRelease: () => {},
     })
   ).current;
 
   const renderCards = useCallback(() => {
-    return data.map(renderItem);
+    return data.map((item, index) => {
+      if (index === 0) {
+        return (
+          <Animated.View
+            key={item.id}
+            style={position.getLayout()}
+            {...panResponder.panHandlers}
+          >
+            {renderItem(item)}
+          </Animated.View>
+        );
+      }
+
+      return renderItem(item);
+    });
   }, [renderItem, data]);
 
-  return (
-      <Animated.View style={position.getLayout()} {...panResponder.panHandlers}>{renderCards()}</Animated.View>
-  );
+  return <View>{renderCards()}</View>;
 };
