@@ -8,13 +8,15 @@ interface Props {
 }
 
 export const Deck: React.FC<Props> = ({ renderItem, data, ...props }) => {
+  const position = useRef(new Animated.ValueXY()).current;
+
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => {
         return true;
       },
       onPanResponderMove: (event, gesture) => {
-        console.log(gesture);
+        position.setValue({x: gesture.dx, y: gesture.dy})
       },
       onPanResponderRelease: () => {},
     })
@@ -24,5 +26,7 @@ export const Deck: React.FC<Props> = ({ renderItem, data, ...props }) => {
     return data.map(renderItem);
   }, [renderItem, data]);
 
-  return <View>{renderCards()}</View>;
+  return (
+      <Animated.View style={position.getLayout()} {...panResponder.panHandlers}>{renderCards()}</Animated.View>
+  );
 };
