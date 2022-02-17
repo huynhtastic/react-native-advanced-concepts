@@ -22,13 +22,19 @@ export const Deck: React.FC<Props> = ({ renderItem, data, ...props }) => {
     })
   ).current;
 
+  const getCardStyle = useCallback(() => {
+    return {...position.getLayout(),
+    transform: [{ rotate: '45deg'}],
+    };
+  }, [position]);
+
   const renderCards = useCallback(() => {
     return data.map((item, index) => {
       if (index === 0) {
         return (
           <Animated.View
             key={item.id}
-            style={position.getLayout()}
+            style={getCardStyle()}
             {...panResponder.panHandlers}
           >
             {renderItem(item)}
