@@ -3,6 +3,7 @@ import { Animated, Dimensions, View, PanResponder } from "react-native";
 import { CardData } from "./types";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
+const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
 
 interface Props {
   renderItem: (item: CardData) => React.ReactElement;
@@ -20,8 +21,14 @@ export const Deck: React.FC<Props> = ({ renderItem, data, ...props }) => {
       onPanResponderMove: (event, gesture) => {
         position.setValue({ x: gesture.dx, y: gesture.dy });
       },
-      onPanResponderRelease: () => {
-        resetPosition();
+      onPanResponderRelease: (event, gesture) => {
+        if (gesture.dx > SWIPE_THRESHOLD) {
+          console.log("swipe right!");
+        } else if (gesture.dx < -SWIPE_THRESHOLD) {
+          console.log("swipe left");
+        } else {
+          resetPosition();
+        }
       },
     })
   ).current;
