@@ -1,6 +1,8 @@
 import React, { useCallback, useRef } from "react";
-import { Animated, View, PanResponder } from "react-native";
+import { Animated, Dimensions, View, PanResponder } from "react-native";
 import { CardData } from "./types";
+
+const SCREEN_WIDTH = Dimensions.get("window").width;
 
 interface Props {
   renderItem: (item: CardData) => React.ReactElement;
@@ -23,9 +25,12 @@ export const Deck: React.FC<Props> = ({ renderItem, data, ...props }) => {
   ).current;
 
   const getCardStyle = useCallback(() => {
-    return {...position.getLayout(),
-    transform: [{ rotate: '45deg'}],
-    };
+    const rotate = position.x.interpolate({
+      inputRange: [-SCREEN_WIDTH * 1.5, 0, SCREEN_WIDTH * 1.5],
+      outputRange: ["-120deg", "0deg", "120deg"],
+    });
+
+    return { ...position.getLayout(), transform: [{ rotate }] };
   }, [position]);
 
   const renderCards = useCallback(() => {
