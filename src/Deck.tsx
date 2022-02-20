@@ -20,9 +20,18 @@ export const Deck: React.FC<Props> = ({ renderItem, data, ...props }) => {
       onPanResponderMove: (event, gesture) => {
         position.setValue({ x: gesture.dx, y: gesture.dy });
       },
-      onPanResponderRelease: () => {},
+      onPanResponderRelease: () => {
+        resetPosition();
+      },
     })
   ).current;
+
+  const resetPosition = useCallback(() => {
+    Animated.spring(position, {
+      toValue: { x: 0, y: 0 },
+      useNativeDriver: false,
+    }).start();
+  }, []);
 
   const getCardStyle = useCallback(() => {
     const rotate = position.x.interpolate({
