@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Animated, Dimensions, View, PanResponder } from "react-native";
 import { CardData } from "./types";
 
@@ -8,9 +8,18 @@ const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
 interface Props {
   renderItem: (item: CardData) => React.ReactElement;
   data: CardData[];
+  onSwipeRight: (item: CardData) => void;
+  onSwipeLeft: (item: CardData) => void;
 }
 
-export const Deck: React.FC<Props> = ({ renderItem, data, ...props }) => {
+export const Deck: React.FC<Props> = ({
+  renderItem,
+  data,
+  onSwipeLeft = () => {},
+  onSwipeRight = () => {},
+  ...props
+}) => {
+  const [index, setIndex] = useState(0);
   const position = useRef(new Animated.ValueXY()).current;
 
   const panResponder = useRef(
@@ -39,7 +48,13 @@ export const Deck: React.FC<Props> = ({ renderItem, data, ...props }) => {
       toValue: { x, y: 0 },
       duration: 250,
       useNativeDriver: false,
-    }).start();
+    }).start(() => onSwipeComplete(direction));
+  }, []);
+
+  const onSwipeComplete = useCallback((direction: "right" | "left") => {
+    const item = data[index];
+
+    direction === "right" ? onSwipeRight(item) : onSwipeLeft(item);
   }, []);
 
   const resetPosition = useCallback(() => {
