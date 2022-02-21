@@ -51,11 +51,16 @@ export const Deck: React.FC<Props> = ({
     }).start(() => onSwipeComplete(direction));
   }, []);
 
-  const onSwipeComplete = useCallback((direction: "right" | "left") => {
-    const item = data[index];
+  const onSwipeComplete = useCallback(
+    (direction: "right" | "left") => {
+      const item = data[index];
 
-    direction === "right" ? onSwipeRight(item) : onSwipeLeft(item);
-  }, []);
+      direction === "right" ? onSwipeRight(item) : onSwipeLeft(item);
+      position.setValue({ x: 0, y: 0 });
+      setIndex(index + 1);
+    },
+    [index]
+  );
 
   const resetPosition = useCallback(() => {
     Animated.spring(position, {
