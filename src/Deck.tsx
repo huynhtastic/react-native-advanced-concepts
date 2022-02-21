@@ -23,15 +23,24 @@ export const Deck: React.FC<Props> = ({ renderItem, data, ...props }) => {
       },
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx > SWIPE_THRESHOLD) {
-          console.log("swipe right!");
+          forceSwipe("right");
         } else if (gesture.dx < -SWIPE_THRESHOLD) {
-          console.log("swipe left");
+          forceSwipe("left");
         } else {
           resetPosition();
         }
       },
     })
   ).current;
+
+  const forceSwipe = useCallback((direction: "right" | "left") => {
+    const x = direction === "right" ? SCREEN_WIDTH : -SCREEN_WIDTH;
+    Animated.timing(position, {
+      toValue: { x, y: 0 },
+      duration: 250,
+      useNativeDriver: false,
+    }).start();
+  }, []);
 
   const resetPosition = useCallback(() => {
     Animated.spring(position, {
