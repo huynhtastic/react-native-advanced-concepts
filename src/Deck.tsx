@@ -112,7 +112,10 @@ export const Deck: React.FC<Props> = ({
         }
 
         return (
-          <Animated.View style={styles.cardStyle} key={item.id}>
+          <Animated.View
+            style={[styles.cardStyle, { top: 10 * (i - index) }]}
+            key={item.id}
+          >
             {renderItem(item)}
           </Animated.View>
         );
