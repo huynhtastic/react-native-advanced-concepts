@@ -1,5 +1,11 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { Animated, Dimensions, View, PanResponder } from "react-native";
+import {
+  Animated,
+  Dimensions,
+  View,
+  PanResponder,
+  StyleSheet,
+} from "react-native";
 import { CardData } from "./types";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -8,16 +14,16 @@ const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
 interface Props {
   renderItem: (item: CardData) => React.ReactElement;
   data: CardData[];
-  onSwipeRight?: (item: CardData) => void;
-  onSwipeLeft?: (item: CardData) => void;
+  onSwipeRight: (item: CardData) => void;
+  onSwipeLeft: (item: CardData) => void;
   renderNoMoreCards: () => React.ReactElement;
 }
 
 export const Deck: React.FC<Props> = ({
   renderItem,
   data,
-  onSwipeLeft = () => {},
-  onSwipeRight = () => {},
+  onSwipeLeft,
+  onSwipeRight,
   renderNoMoreCards,
 }) => {
   const [index, setIndex] = useState(0);
@@ -27,7 +33,7 @@ export const Deck: React.FC<Props> = ({
     (direction: "right" | "left") => {
       const item = data[index];
 
-      direction === "right" ? onSwipeRight(item) : onSwipeLeft(item);
+      // direction === "right" ? onSwipeRight(item) : onSwipeLeft(item);
       setIndex(index + 1);
       position.setValue({ x: 0, y: 0 });
     },
@@ -89,23 +95,29 @@ export const Deck: React.FC<Props> = ({
       return renderNoMoreCards();
     }
 
-    return data.map((item, i) => {
-      if (i < index) {
-        return null;
-      } else if (i === index) {
+    return data
+      .map((item, i) => {
+        if (i < index) {
+          return null;
+        } else if (i === index) {
+          return (
+            <Animated.View
+              key={item.id}
+              style={[getCardStyle(), styles.cardStyle]}
+              {...panResponder.panHandlers}
+            >
+              {renderItem(item)}
+            </Animated.View>
+          );
+        }
+
         return (
-          <Animated.View
-            key={item.id}
-            style={getCardStyle()}
-            {...panResponder.panHandlers}
-          >
+          <Animated.View style={styles.cardStyle} key={item.id}>
             {renderItem(item)}
           </Animated.View>
         );
-      }
-
-      return renderItem(item);
-    });
+      })
+      .reverse();
   }, [
     renderItem,
     data,
@@ -117,3 +129,10 @@ export const Deck: React.FC<Props> = ({
 
   return <View>{renderCards()}</View>;
 };
+
+const styles = StyleSheet.create({
+  cardStyle: {
+    position: "absolute",
+    width: SCREEN_WIDTH,
+  },
+});
