@@ -10,6 +10,7 @@ interface Props {
   data: CardData[];
   onSwipeRight?: (item: CardData) => void;
   onSwipeLeft?: (item: CardData) => void;
+  renderNoMoreCards: () => React.ReactElement;
 }
 
 export const Deck: React.FC<Props> = ({
@@ -17,6 +18,7 @@ export const Deck: React.FC<Props> = ({
   data,
   onSwipeLeft = () => {},
   onSwipeRight = () => {},
+  renderNoMoreCards,
 }) => {
   const [index, setIndex] = useState(0);
   const position = useRef(new Animated.ValueXY()).current;
@@ -83,6 +85,10 @@ export const Deck: React.FC<Props> = ({
   }, [position]);
 
   const renderCards = useCallback(() => {
+    if (index >= data.length) {
+      return renderNoMoreCards();
+    }
+
     return data.map((item, i) => {
       if (i < index) {
         return null;
@@ -100,7 +106,14 @@ export const Deck: React.FC<Props> = ({
 
       return renderItem(item);
     });
-  }, [renderItem, data, index, getCardStyle, panResponder.panHandlers]);
+  }, [
+    renderItem,
+    data,
+    index,
+    getCardStyle,
+    panResponder.panHandlers,
+    renderNoMoreCards,
+  ]);
 
   return <View>{renderCards()}</View>;
 };

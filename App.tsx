@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import { Deck } from "./src/Deck";
 import { CardData } from "./src/types";
-import { Card, Button } from "react-native-elements";
+import { Card, Button, Text } from "react-native-elements";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const DATA: CardData[] = [
@@ -51,10 +52,24 @@ const DATA: CardData[] = [
 const renderItem = (item: CardData) => {
   return (
     <Card key={item.id}>
-      <Card.Image source={{uri: item.uri}} />
+      <Card.Image source={{ uri: item.uri }} />
       <Card.Title>{item.text}</Card.Title>
       <Text>I can customize the Card further.</Text>
-      <Button icon={{ color: '#fff', name: 'code'}} buttonStyle={{backgroundColor: '#03A9F4'}} title='View Now!' />
+      <Button
+        icon={{ color: "#fff", name: "code" }}
+        buttonStyle={{ backgroundColor: "#03A9F4" }}
+        title="View Now!"
+      />
+    </Card>
+  );
+};
+
+const renderNoMoreCards = () => {
+  return (
+    <Card>
+      <Card.Title>All Done!</Card.Title>
+      <Text style={{ marginBottom: 10 }}>There&apos;s no more cards!</Text>
+      <Button title="Get More" />
     </Card>
   );
 };
@@ -63,7 +78,11 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <View style={styles.container}>
-        <Deck data={DATA} renderItem={renderItem} />
+        <Deck
+          data={DATA}
+          renderItem={renderItem}
+          renderNoMoreCards={renderNoMoreCards}
+        />
         <StatusBar style="auto" />
       </View>
     </SafeAreaProvider>
