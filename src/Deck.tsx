@@ -57,6 +57,10 @@ export const Deck: React.FC<Props> = ({
   );
 
   useEffect(() => {
+    setIndex(0);
+  }, [data]);
+
+  useEffect(() => {
     if (Platform.OS === "android") {
       if (UIManager.setLayoutAnimationEnabledExperimental) {
         UIManager.setLayoutAnimationEnabledExperimental(true);
