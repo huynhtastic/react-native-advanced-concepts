@@ -1,4 +1,4 @@
-import { auth } from "firebase-admin";
+import { auth, database } from "firebase-admin";
 import { CloudFunction } from "./types";
 import { TwilioService } from "./twilio";
 
@@ -15,11 +15,25 @@ export const requestOtp: CloudFunction = (req, res) => {
     .then((userRecord) => {
       const code = Math.floor(Math.random() * 8999 + 1000);
 
-      TwilioService.messages.create({
-        body: `Your code is ${code}`,
-        to: phone,
-        from: "+19124556861",
-      });
+      TwilioService.messages.create(
+        {
+          body: `Your code is ${code}`,
+          to: phone,
+          from: "+19124556861",
+        },
+        (err) => {
+          if (err) {
+            res.status(422).send(err);
+            return;
+          }
+
+          database()
+            .ref("users/" + phone)
+            .update({ code, codeValid: true }, () => {
+              res.send({ success: true });
+            });
+        }
+      );
     })
     .catch((err) => {
       res.status(422).send({ error: err });
