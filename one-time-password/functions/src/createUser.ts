@@ -1,7 +1,7 @@
-import { https } from "firebase-functions";
 import { auth } from "firebase-admin";
+import { CloudFunction } from "./types";
 
-export const createUser: Parameters<typeof https.onRequest>[0] = (req, res) => {
+export const createUser: CloudFunction = (req, res) => {
   // Verify provided phone
   if (!req.body.phone) {
     res.status(422).send({ error: "Bad Input" });
