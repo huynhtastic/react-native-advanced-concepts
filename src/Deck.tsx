@@ -1,10 +1,19 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   Animated,
   Dimensions,
   View,
   PanResponder,
   StyleSheet,
+  LayoutAnimation,
+  UIManager,
+  Platform,
 } from "react-native";
 import { CardData } from "./types";
 
@@ -36,9 +45,24 @@ export const Deck: React.FC<Props> = ({
       // direction === "right" ? onSwipeRight(item) : onSwipeLeft(item);
       setIndex(index + 1);
       position.setValue({ x: 0, y: 0 });
+      LayoutAnimation.configureNext({
+        duration: 800,
+        update: {
+          type: LayoutAnimation.Types.spring,
+          springDamping: 0.4,
+        },
+      });
     },
     [data, index, onSwipeLeft, onSwipeRight, position]
   );
+
+  useEffect(() => {
+    if (Platform.OS === "android") {
+      if (UIManager.setLayoutAnimationEnabledExperimental) {
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+      }
+    }
+  }, []);
 
   const forceSwipe = useCallback(
     (direction: "right" | "left") => {
