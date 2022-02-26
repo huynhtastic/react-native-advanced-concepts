@@ -8,7 +8,7 @@ export const requestOtp: CloudFunction = (req, res) => {
     return;
   }
 
-  const phone = String(req.body.phone).replace(/[^/d]/g, "");
+  const phone = String(req.body.phone).replace(/[^\d]/g, "");
 
   auth()
     .getUser(phone)
