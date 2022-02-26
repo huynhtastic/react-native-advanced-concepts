@@ -1,4 +1,5 @@
 service_account.json
+secrets.ts
 
 # Compiled JavaScript files
 lib/**/*.js
