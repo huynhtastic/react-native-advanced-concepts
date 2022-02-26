@@ -42,7 +42,7 @@ export const Deck: React.FC<Props> = ({
     (direction: "right" | "left") => {
       const item = data[index];
 
-      // direction === "right" ? onSwipeRight(item) : onSwipeLeft(item);
+      direction === "right" ? onSwipeRight(item) : onSwipeLeft(item);
       setIndex(index + 1);
       position.setValue({ x: 0, y: 0 });
       LayoutAnimation.configureNext({

@@ -79,6 +79,8 @@ export default function App() {
     <SafeAreaProvider>
       <View style={styles.container}>
         <Deck
+          onSwipeLeft={() => {}}
+          onSwipeRight={() => {}}
           data={DATA}
           renderItem={renderItem}
           renderNoMoreCards={renderNoMoreCards}
