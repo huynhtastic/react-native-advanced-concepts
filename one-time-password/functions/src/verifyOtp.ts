@@ -15,6 +15,7 @@ export const verifyOtp: CloudFunction = (req, res) => {
     .then(() => {
       const ref = database().ref("users/" + phone);
       ref.on("value", (snapshot) => {
+        ref.off();
         const user = snapshot.val();
         if (user.code !== code || !user.codeValid) {
           res.status(422).send({ error: "Code not valid" });
@@ -22,6 +23,9 @@ export const verifyOtp: CloudFunction = (req, res) => {
         }
 
         ref.update({ codeValid: false });
+        auth()
+          .createCustomToken(phone)
+          .then((token) => res.send({ token }));
       });
     })
     .catch((err) => res.status(422).send(err));
