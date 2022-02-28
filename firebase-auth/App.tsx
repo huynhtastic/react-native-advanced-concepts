@@ -1,10 +1,15 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { SignUpForm } from "./components/SignUpForm";
+import { initializeApp } from "firebase/app";
+import React, { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
 import { SignInForm } from "./components/SignInForm";
+import { SignUpForm } from "./components/SignUpForm";
+import { firebaseConfig } from "./firebaseConfig";
 
 export default function App() {
+  useEffect(() => {
+    initializeApp(firebaseConfig);
+  }, []);
+
   return (
     <View style={styles.container}>
       <SignUpForm />
