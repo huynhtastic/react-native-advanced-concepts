@@ -7,8 +7,12 @@ const BASE_URL =
   "https://us-central1-one-time-password-1083b.cloudfunctions.net";
 
 const handleSubmit = async (phone: string) => {
-  await axios.post("createUser", { phone }, { baseURL: BASE_URL });
-  await axios.post("requestOtp", { phone }, { baseURL: BASE_URL });
+  try {
+    await axios.post("createUser", { phone }, { baseURL: BASE_URL });
+    await axios.post("requestOtp", { phone }, { baseURL: BASE_URL });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const SignUpForm: React.FC = () => {
@@ -22,7 +26,7 @@ export const SignUpForm: React.FC = () => {
         style={styles.formControl}
         placeholder="Enter Phone Number"
       />
-      <Button title="Submit" />
+      <Button onPress={() => handleSubmit(phone)} title="Submit" />
     </>
   );
 };
