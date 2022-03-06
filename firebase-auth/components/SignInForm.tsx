@@ -1,7 +1,8 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import { Input, Button } from "react-native-elements";
-import axios from "axios";
+import { Button, Input } from "react-native-elements";
+import firebaseAuth, { getAuth } from "firebase/auth";
 
 const BASE_URL =
   "https://us-central1-one-time-password-1083b.cloudfunctions.net";
@@ -13,7 +14,8 @@ const handleSubmit = async (phone: string, code: string) => {
       { phone, code },
       { baseURL: BASE_URL }
     );
-    console.log(res.data);
+
+    firebaseAuth.signInWithCustomToken(getAuth(), res.data.token);
   } catch (e) {
     console.log(e);
   }
