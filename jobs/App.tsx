@@ -1,21 +1,9 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { WelcomeTabs } from "./src/navigators/WelcomeTabs";
-import {
-  DeckScreen,
-  MapScreen,
-  ReviewScreen,
-  SettingsScreen,
-} from "./src/screens";
-
-const MainTab = createBottomTabNavigator<{
-  Map: undefined;
-  Deck: undefined;
-  ReviewStack: undefined;
-}>();
+import { ReviewScreen, SettingsScreen } from "./src/screens";
 
 const Stack = createNativeStackNavigator<{
   Review: undefined;
@@ -52,16 +40,6 @@ const StackNavigator = () => {
       />
       <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>
-  );
-};
-
-const MainTabNavigator = () => {
-  return (
-    <MainTab.Navigator screenOptions={{ headerShown: false }}>
-      <MainTab.Screen name="Map" component={MapScreen} />
-      <MainTab.Screen name="Deck" component={DeckScreen} />
-      <MainTab.Screen name="ReviewStack" component={StackNavigator} />
-    </MainTab.Navigator>
   );
 };
 

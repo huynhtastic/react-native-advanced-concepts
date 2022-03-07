@@ -3,6 +3,7 @@ import {
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 import { AuthScreen, WelcomeScreen } from "../screens";
+import { MainTabs } from "./MainTabs";
 
 export type Params = {
   Auth: undefined;
@@ -22,7 +23,7 @@ export const WelcomeTabs = () => {
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="Welcome" component={WelcomeScreen} />
       <Tab.Screen name="Auth" component={AuthScreen} />
-      {/* <Tab.Screen name="Main" component={MainTabNavigator} /> */}
+      <Tab.Screen name="Main" component={MainTabs} />
     </Tab.Navigator>
   );
 };
