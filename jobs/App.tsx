@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Platform, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -39,6 +39,14 @@ const StackNavigator = () => {
           headerRight: () => {
             return (
               <Button
+                titleProps={{
+                  style: {
+                    color: "rgba(0,122,225,1)",
+                  },
+                }}
+                buttonStyle={{
+                  backgroundColor: "rgba(0,0,0,0)",
+                }}
                 title="Settings"
                 onPress={() => {
                   navigation.navigate("Settings");
@@ -55,7 +63,7 @@ const StackNavigator = () => {
 
 const MainTabNavigator = () => {
   return (
-    <MainTab.Navigator screenOptions={{ header: undefined }}>
+    <MainTab.Navigator screenOptions={{ headerShown: false }}>
       <MainTab.Screen name="Map" component={MapScreen} />
       <MainTab.Screen name="Deck" component={DeckScreen} />
       <MainTab.Screen name="ReviewStack" component={StackNavigator} />
@@ -66,11 +74,13 @@ const MainTabNavigator = () => {
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{ header: undefined }}>
-        <Tab.Screen name="Welcome" component={WelcomeScreen} />
-        <Tab.Screen name="Auth" component={AuthScreen} />
-        <Tab.Screen name="Main" component={MainTabNavigator} />
-      </Tab.Navigator>
+      <View style={{ marginTop: Platform.OS === "android" ? 48 : 0, flex: 1 }}>
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
+          <Tab.Screen name="Welcome" component={WelcomeScreen} />
+          <Tab.Screen name="Auth" component={AuthScreen} />
+          <Tab.Screen name="Main" component={MainTabNavigator} />
+        </Tab.Navigator>
+      </View>
     </NavigationContainer>
   );
 }
