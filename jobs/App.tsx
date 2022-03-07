@@ -1,4 +1,3 @@
-import { Platform, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -10,6 +9,7 @@ import { DeckScreen } from "./screens/DeckScreen";
 import { ReviewScreen } from "./screens/ReviewScreen";
 import { SettingsScreen } from "./screens/SettingsScreen";
 import { Button } from "react-native-elements";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator<{
   Auth: undefined;
@@ -74,13 +74,13 @@ const MainTabNavigator = () => {
 export default function App() {
   return (
     <NavigationContainer>
-      <View style={{ marginTop: Platform.OS === "android" ? 48 : 0, flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <Tab.Navigator screenOptions={{ headerShown: false }}>
           <Tab.Screen name="Welcome" component={WelcomeScreen} />
           <Tab.Screen name="Auth" component={AuthScreen} />
           <Tab.Screen name="Main" component={MainTabNavigator} />
         </Tab.Navigator>
-      </View>
+      </SafeAreaView>
     </NavigationContainer>
   );
 }
