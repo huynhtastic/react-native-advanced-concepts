@@ -9,6 +9,7 @@ import { MapScreen } from "./screens/MapScreen";
 import { DeckScreen } from "./screens/DeckScreen";
 import { ReviewScreen } from "./screens/ReviewScreen";
 import { SettingsScreen } from "./screens/SettingsScreen";
+import { Button } from "react-native-elements";
 
 const Tab = createBottomTabNavigator<{
   Auth: undefined;
@@ -33,12 +34,19 @@ const StackNavigator = () => {
       <Stack.Screen
         name="Review"
         component={ReviewScreen}
-        options={{
+        options={({ navigation }) => ({
           title: "Review Jobs",
           headerRight: () => {
-            return <Text>Go Right</Text>;
+            return (
+              <Button
+                title="Settings"
+                onPress={() => {
+                  navigation.navigate("Settings");
+                }}
+              />
+            );
           },
-        }}
+        })}
       />
       <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>
@@ -47,7 +55,7 @@ const StackNavigator = () => {
 
 const MainTabNavigator = () => {
   return (
-    <MainTab.Navigator>
+    <MainTab.Navigator screenOptions={{ header: undefined }}>
       <MainTab.Screen name="Map" component={MapScreen} />
       <MainTab.Screen name="Deck" component={DeckScreen} />
       <MainTab.Screen name="ReviewStack" component={StackNavigator} />
@@ -58,7 +66,7 @@ const MainTabNavigator = () => {
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator screenOptions={{ header: undefined }}>
         <Tab.Screen name="Welcome" component={WelcomeScreen} />
         <Tab.Screen name="Auth" component={AuthScreen} />
         <Tab.Screen name="Main" component={MainTabNavigator} />
