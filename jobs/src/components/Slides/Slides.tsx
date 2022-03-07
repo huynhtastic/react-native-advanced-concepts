@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useCallback } from "react";
 import { Dimensions, ScrollView, Text, View, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
+import { WelcomeTabsScreenProps } from "../../navigators/WelcomeTabs";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 }
 
 export const Slides: React.FC<Props> = ({ data }) => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<WelcomeTabsScreenProps["navigation"]>();
 
   const renderLastSlide = useCallback(
     (index: number) => {

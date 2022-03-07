@@ -1,21 +1,15 @@
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-import { AuthScreen } from "./screens/AuthScreen";
-import { WelcomeScreen } from "./screens/WelcomeScreen";
-import { MapScreen } from "./screens/MapScreen";
-import { DeckScreen } from "./screens/DeckScreen";
-import { ReviewScreen } from "./screens/ReviewScreen";
-import { SettingsScreen } from "./screens/SettingsScreen";
 import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-const Tab = createBottomTabNavigator<{
-  Auth: undefined;
-  Welcome: undefined;
-  Main: undefined;
-}>();
+import { WelcomeTabs } from "./src/navigators/WelcomeTabs";
+import {
+  DeckScreen,
+  MapScreen,
+  ReviewScreen,
+  SettingsScreen,
+} from "./src/screens";
 
 const MainTab = createBottomTabNavigator<{
   Map: undefined;
@@ -75,11 +69,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <SafeAreaView style={{ flex: 1 }}>
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
-          <Tab.Screen name="Welcome" component={WelcomeScreen} />
-          <Tab.Screen name="Auth" component={AuthScreen} />
-          <Tab.Screen name="Main" component={MainTabNavigator} />
-        </Tab.Navigator>
+        <WelcomeTabs />
       </SafeAreaView>
     </NavigationContainer>
   );
