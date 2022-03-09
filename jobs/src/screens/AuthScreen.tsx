@@ -1,16 +1,27 @@
 import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { Text, View } from "react-native";
-import * as actions from "../actions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { actions } from "../actions";
+import { WelcomeTabsScreenProps } from "../navigators/WelcomeTabs";
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export const _AuthScreen: React.FC<PropsFromRedux> = ({ facebookLogin }) => {
+type Props = PropsFromRedux & WelcomeTabsScreenProps<"Auth">;
+
+export const _AuthScreen: React.FC<Props> = ({
+  facebookLogin,
+  navigation,
+  token,
+}) => {
   useEffect(() => {
     facebookLogin();
-    AsyncStorage.removeItem("fb_token");
-  });
+  }, [facebookLogin]);
+
+  useEffect(() => {
+    if (token) {
+      navigation.navigate("Map");
+    }
+  }, [token]);
 
   return (
     <View>
@@ -23,5 +34,9 @@ export const _AuthScreen: React.FC<PropsFromRedux> = ({ facebookLogin }) => {
   );
 };
 
-const connector = connect(null, actions);
+const mapStateToProps = ({ auth }: { auth: { token?: string } }) => {
+  return { token: auth.token };
+};
+
+const connector = connect(mapStateToProps, actions);
 export const AuthScreen = connector(_AuthScreen);

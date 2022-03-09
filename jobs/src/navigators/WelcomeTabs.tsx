@@ -1,9 +1,10 @@
 import {
-  BottomTabScreenProps,
+  BottomTabNavigationProp,
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
+import { CompositeNavigationProp, RouteProp } from "@react-navigation/native";
 import { AuthScreen, WelcomeScreen } from "../screens";
-import { MainTabs } from "./MainTabs";
+import { MainTabs, MainTabsNavProp } from "./MainTabs";
 
 export type Params = {
   Auth: undefined;
@@ -12,9 +13,19 @@ export type Params = {
 };
 
 type Routes = keyof Params;
-
-export type WelcomeTabsScreenProps<Route extends Routes = Routes> =
-  BottomTabScreenProps<Params, Route>;
+type WelcomeTabsNavProp<Route extends Routes = Routes> =
+  CompositeNavigationProp<
+    BottomTabNavigationProp<Params, Route>,
+    MainTabsNavProp
+  >;
+type WelcomeTabsRouteProp<Route extends Routes = Routes> = RouteProp<
+  Params,
+  Route
+>;
+export interface WelcomeTabsScreenProps<Route extends Routes = Routes> {
+  navigation: WelcomeTabsNavProp<Route>;
+  route: WelcomeTabsRouteProp<Route>;
+}
 
 const Tab = createBottomTabNavigator<Params>();
 

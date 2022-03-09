@@ -1,1 +1,5 @@
-export * from "./authActions";
+import * as authActions from "./authActions";
+
+export const actions = {
+  ...authActions,
+};
