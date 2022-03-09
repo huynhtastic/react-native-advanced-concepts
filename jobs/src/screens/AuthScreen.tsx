@@ -18,8 +18,9 @@ export const _AuthScreen: React.FC<Props> = ({
   }, [facebookLogin]);
 
   useEffect(() => {
+    console.log(token);
     if (token) {
-      navigation.navigate("Map");
+      navigation.navigate("Main", { screen: "Map" });
     }
   }, [token]);
 

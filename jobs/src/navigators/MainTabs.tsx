@@ -6,7 +6,7 @@ import { RouteProp } from "@react-navigation/native";
 import { DeckScreen, MapScreen } from "../screens";
 import { ReviewStack } from "./ReviewStack";
 
-type Params = {
+export type Params = {
   Map: undefined;
   Deck: undefined;
   ReviewStack: undefined;
