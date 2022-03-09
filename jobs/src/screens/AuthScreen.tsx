@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect, ConnectedProps } from "react-redux";
 import { Text, View } from "react-native";
+import * as actions from "../actions";
 
-export const AuthScreen: React.FC = () => {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export const _AuthScreen: React.FC<PropsFromRedux> = ({ facebookLogin }) => {
+  useEffect(() => {
+    facebookLogin();
+  });
+
   return (
     <View>
       <Text>AuthScreen</Text>
@@ -12,3 +20,6 @@ export const AuthScreen: React.FC = () => {
     </View>
   );
 };
+
+const connector = connect(null, actions);
+export const AuthScreen = connector(_AuthScreen);

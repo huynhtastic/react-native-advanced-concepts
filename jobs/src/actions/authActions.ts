@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FACEBOOK_LOGIN_FAIL, FACEBOOK_LOGIN_SUCCESS } from "./types";
 import { DefaultRootState } from "react-redux";
 import { Action } from "redux";
-import Facebook from "expo-facebook";
+import * as Facebook from "expo-facebook";
 
 export const facebookLogin =
   (): ThunkAction<
@@ -28,7 +28,7 @@ const doFacebookLogin = async (
     Action<"FACEBOOK_LOGIN_SUCCESS" | "FACEBOOK_LOGIN_FAIL">
   >
 ) => {
-  await Facebook.initializeAsync("343123017746716");
+  await Facebook.initializeAsync({ appId: "343123017746716" });
   const result = await Facebook.logInWithReadPermissionsAsync({
     permissions: ["public_profile"],
   });
