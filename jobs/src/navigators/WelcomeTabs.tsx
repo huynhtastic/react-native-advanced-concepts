@@ -22,10 +22,7 @@ export type Params = {
 
 type Routes = keyof Params;
 type WelcomeTabsNavProp<Route extends Routes = Routes> =
-  CompositeNavigationProp<
-    BottomTabNavigationProp<Params, Route>,
-    MainTabsNavProp
-  >;
+  BottomTabNavigationProp<Params, Route>;
 type WelcomeTabsRouteProp<Route extends Routes = Routes> = RouteProp<
   Params,
   Route

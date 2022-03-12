@@ -19,7 +19,7 @@ type MainTabsRouteProp<Route extends Routes = Routes> = RouteProp<
   Params,
   Route
 >;
-export interface WelcomeTabsScreenProps<Route extends Routes = Routes> {
+export interface MainTabsScreenProps<Route extends Routes = Routes> {
   navigation: MainTabsNavProp<Route>;
   route: MainTabsRouteProp<Route>;
 }
