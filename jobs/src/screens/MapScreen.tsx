@@ -12,7 +12,11 @@ export const MapScreen: React.FC = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <MapView region={region} style={{ flex: 1 }} />
+      <MapView
+        region={region}
+        style={{ flex: 1 }}
+        onRegionChangeComplete={setRegion}
+      />
     </View>
   );
 };

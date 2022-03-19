@@ -19,9 +19,9 @@ export const _AuthScreen: React.FC<Props> = ({
 
   useEffect(() => {
     console.log(token);
-    if (token) {
-      navigation.navigate("Main", { screen: "Map" });
-    }
+    // if (token) {
+    navigation.navigate("Main", { screen: "Map" });
+    // }
   }, [token]);
 
   return (

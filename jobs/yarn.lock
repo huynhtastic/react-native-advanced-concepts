@@ -1880,6 +1880,13 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+axios@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
+  integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
+  dependencies:
+    follow-redirects "^1.14.8"
+
 babel-core@^7.0.0-bridge.0:
   version "7.0.0-bridge.0"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-7.0.0-bridge.0.tgz#95a492ddd90f9b4e9a4a1da14eb335b87b634ece"
@@ -2997,6 +3004,11 @@ flow-parser@^0.121.0:
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.121.0.tgz#9f9898eaec91a9f7c323e9e992d81ab5c58e618f"
   integrity sha512-1gIBiWJNR0tKUNv8gZuk7l9rVX06OuLzY9AoGio7y/JT4V1IZErEMEq2TJS+PFcw/y0RshZ1J/27VfK1UQzYVg==
 
+follow-redirects@^1.14.8:
+  version "1.14.9"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.9.tgz#dd4ea157de7bfaf9ea9b3fbd85aa16951f78d8d7"
+  integrity sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==
+
 fontfaceobserver@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/fontfaceobserver/-/fontfaceobserver-2.1.0.tgz#e2705d293e2c585a6531c2a722905657317a2991"
@@ -3076,6 +3088,15 @@ gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
   integrity sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==
+
+geo2zip@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/geo2zip/-/geo2zip-3.0.0.tgz#6ee1b169624b2de16b6b7911fff6dbbdd2bee90a"
+  integrity sha512-VyoG+v1yH2rLZ0JG2MhHM7sSTRP2q8FSNM0pbIzgQq3T01GDC2Ep2SAsPmbIs6+pA8cpEgFWzN6XtIZe0GiN3g==
+  dependencies:
+    sphere-knn "^1.4.0"
+    standardize-geolocation "^4.0.0"
+    us-zips "^2021.11.4"
 
 get-caller-file@^2.0.1:
   version "2.0.5"
@@ -5375,6 +5396,11 @@ source-map@^0.7.3:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
   integrity sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==
 
+sphere-knn@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/sphere-knn/-/sphere-knn-1.4.0.tgz#27f3120cdfade79efbbbc2e147a4b8d21c831537"
+  integrity sha512-sFdsABoSClBxz3DzO2yvHwbbV4zIRvgrIeC1qqWPYzKMtT26xCF/r5xG9Sj7iLFG9GJIt1WnT6VpYaQeRvIzPA==
+
 split-on-first@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/split-on-first/-/split-on-first-1.1.0.tgz#f610afeee3b12bce1d0c30425e76398b78249a5f"
@@ -5403,6 +5429,11 @@ stacktrace-parser@^0.1.3:
   integrity sha512-KJP1OCML99+8fhOHxwwzyWrlUuVX5GQ0ZpJTd1DFXhdkrvg1szxfHhawXUZ3g9TkXORQd4/WG68jMlQZ2p8wlg==
   dependencies:
     type-fest "^0.7.1"
+
+standardize-geolocation@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/standardize-geolocation/-/standardize-geolocation-4.0.1.tgz#819c949c72625a78d70a71030030d017f4529280"
+  integrity sha512-McYDKhwSltj03rUkHzCJJOL1WoXZ4IOKezrEWrsvfwc/306XJiFAsmh2/tcpBWDjxwzJAWkAWbZ6em22jG/cqQ==
 
 static-extend@^0.1.1:
   version "0.1.2"
@@ -5729,6 +5760,11 @@ url-parse@^1.4.4:
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
+
+us-zips@^2021.11.4:
+  version "2021.11.4"
+  resolved "https://registry.yarnpkg.com/us-zips/-/us-zips-2021.11.4.tgz#09570e777fa2a1d90042044d710c27f588894274"
+  integrity sha512-WLrTcRHKznNeym5TEzTDEk6uF82zgnl9IJwjD2YKwVpOoZP1qIky5IZYzDwrUkt9imbUjQ6nh0dIMk2/gK+tAA==
 
 use-subscription@^1.0.0:
   version "1.5.1"
