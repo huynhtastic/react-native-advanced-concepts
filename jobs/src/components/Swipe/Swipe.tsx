@@ -26,6 +26,7 @@ interface Props {
   onSwipeRight: (item: CardData) => void;
   onSwipeLeft: (item: CardData) => void;
   renderNoMoreCards: () => React.ReactElement;
+  keyProp?: string;
 }
 
 export const Swipe: React.FC<Props> = ({
@@ -34,6 +35,7 @@ export const Swipe: React.FC<Props> = ({
   onSwipeLeft,
   onSwipeRight,
   renderNoMoreCards,
+  keyProp = "id",
 }) => {
   const [index, setIndex] = useState(0);
   const position = useRef(new Animated.ValueXY()).current;
@@ -123,32 +125,32 @@ export const Swipe: React.FC<Props> = ({
       return renderNoMoreCards();
     }
 
-    return data
-      .map((item, i) => {
-        if (i < index) {
-          return null;
-        } else if (i === index) {
-          return (
-            <Animated.View
-              key={item.id}
-              style={[getCardStyle(), styles.cardStyle]}
-              {...panResponder.panHandlers}
-            >
-              {renderItem(item)}
-            </Animated.View>
-          );
-        }
-
+    const deck = data.map((item, i) => {
+      if (i < index) {
+        return null;
+      } else if (i === index) {
         return (
           <Animated.View
-            style={[styles.cardStyle, { top: 10 * (i - index) }]}
-            key={item.id}
+            key={item[keyProp as keyof CardData]}
+            style={[getCardStyle(), styles.cardStyle]}
+            {...panResponder.panHandlers}
           >
             {renderItem(item)}
           </Animated.View>
         );
-      })
-      .reverse();
+      }
+
+      return (
+        <Animated.View
+          style={[styles.cardStyle, { top: 10 * (i - index) }]}
+          key={item[keyProp as keyof CardData]}
+        >
+          {renderItem(item)}
+        </Animated.View>
+      );
+    });
+
+    return Platform.OS === "android" ? deck : deck.reverse();
   }, [
     renderItem,
     data,

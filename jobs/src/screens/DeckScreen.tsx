@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { connect, ConnectedProps } from "react-redux";
 import { actions } from "../actions";
 import { MainTabsScreenProps } from "../navigators/MainTabs";
@@ -14,6 +14,13 @@ type Props = PropsFromRedux & MainTabsScreenProps<"Deck">;
 export const _DeckScreen: React.FC<Props> = ({ jobs }) => {
   // @ts-ignore
   const renderCard = (job) => {
+    const initialRegion = {
+      longitude: job.longitude,
+      latitude: job.latitude,
+      latitudeDelta: 0.045,
+      longitudeDelta: 0.02,
+    };
+
     return (
       <Card>
         <Card.Title>{job.jobtitle}</Card.Title>
@@ -22,13 +29,34 @@ export const _DeckScreen: React.FC<Props> = ({ jobs }) => {
           <Text>{job.formattedRelativeTime}</Text>
         </View>
         <Text>{job.snippet.replace(/<b>/g, "").replace(/<\/b>/g, "")}</Text>
+        <View style={{ height: 300 }}>
+          <MapView
+            initialRegion={initialRegion}
+            cacheEnabled={Platform.OS === "android"}
+            scrollEnabled={false}
+            style={{ flex: 1 }}
+          />
+        </View>
+      </Card>
+    );
+  };
+
+  const renderNoMoreCards = () => {
+    return (
+      <Card>
+        <Card.Title>No More Jobs</Card.Title>
       </Card>
     );
   };
 
   return (
     <View>
-      <Swipe data={jobs} renderItem={renderCard} />
+      <Swipe
+        keyProp="jobkey"
+        data={jobs}
+        renderItem={renderCard}
+        renderNoMoreCards={renderNoMoreCards}
+      />
     </View>
   );
 };
