@@ -28,7 +28,8 @@ const buildJobsUrl = (zip: string) => {
 
 export const fetchJobs =
   (
-    region: Region
+    _: Region,
+    callback: () => void
   ): ThunkAction<void, DefaultRootState, void, Action<typeof FETCH_JOBS>> =>
   async (dispatch) => {
     try {
@@ -38,6 +39,7 @@ export const fetchJobs =
       // dispatch({ type: FETCH_JOBS, payload: data });
 
       dispatch({ type: FETCH_JOBS, payload: JOB_DATA });
+      callback();
     } catch (e) {
       console.log(e);
     }

@@ -11,7 +11,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & MainTabsScreenProps<"Map">;
 
-export const _MapScreen: React.FC<Props> = ({ fetchJobs }) => {
+export const _MapScreen: React.FC<Props> = ({ fetchJobs, navigation }) => {
   const [region, setRegion] = useState<Region>({
     longitude: -122,
     latitude: 37,
@@ -20,7 +20,9 @@ export const _MapScreen: React.FC<Props> = ({ fetchJobs }) => {
   });
 
   const onBtnPress = () => {
-    fetchJobs(region);
+    fetchJobs(region, () => {
+      navigation.navigate("Deck");
+    });
   };
 
   return (
