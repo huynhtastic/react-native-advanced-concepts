@@ -11,7 +11,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & MainTabsScreenProps<"Deck">;
 
-export const _DeckScreen: React.FC<Props> = ({ jobs }) => {
+export const _DeckScreen: React.FC<Props> = ({ jobs, likeJob, navigation }) => {
   // @ts-ignore
   const renderCard = (job) => {
     const initialRegion = {
@@ -45,17 +45,23 @@ export const _DeckScreen: React.FC<Props> = ({ jobs }) => {
     return (
       <Card>
         <Card.Title>No More Jobs</Card.Title>
+        <Button
+          title="Back To Map"
+          icon={{ name: "my-location" }}
+          onPress={() => navigation.navigate("Map")}
+        />
       </Card>
     );
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Swipe
         keyProp="jobkey"
         data={jobs}
         renderItem={renderCard}
         renderNoMoreCards={renderNoMoreCards}
+        onSwipeRight={likeJob}
       />
     </View>
   );
@@ -66,6 +72,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginBottom: 10,
+  },
+  container: {
+    marginTop: 10,
   },
 });
 

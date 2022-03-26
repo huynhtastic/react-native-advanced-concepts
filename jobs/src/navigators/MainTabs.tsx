@@ -3,6 +3,7 @@ import {
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 import { RouteProp } from "@react-navigation/native";
+import { Icon } from "react-native-elements";
 import { DeckScreen, MapScreen } from "../screens";
 import { ReviewStack } from "./ReviewStack";
 
@@ -29,9 +30,34 @@ const Tab = createBottomTabNavigator<Params>();
 export const MainTabs = () => {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Map" component={MapScreen} />
-      <Tab.Screen name="Deck" component={DeckScreen} />
-      <Tab.Screen name="ReviewStack" component={ReviewStack} />
+      <Tab.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon tvParallaxProperties={{}} color={color} name="my-location" />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Deck"
+        component={DeckScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon tvParallaxProperties={{}} color={color} name="description" />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ReviewStack"
+        component={ReviewStack}
+        options={{
+          title: "Review Jobs",
+          tabBarIcon: ({ color }) => (
+            <Icon tvParallaxProperties={{}} color={color} name="favorite" />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };

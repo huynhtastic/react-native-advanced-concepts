@@ -2,7 +2,7 @@ import axios from "axios";
 import { DefaultRootState } from "react-redux";
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { FETCH_JOBS } from "./types";
+import { CLEAR_LIKED_JOBS, FETCH_JOBS, LIKE_JOB } from "./types";
 import { Region } from "react-native-maps";
 import { JOB_DATA } from "./mockJobData";
 
@@ -43,4 +43,28 @@ export const fetchJobs =
     } catch (e) {
       console.log(e);
     }
+  };
+
+export const likeJob =
+  (
+    job: any
+  ): ThunkAction<void, DefaultRootState, void, Action<typeof LIKE_JOB>> =>
+  (dispatch) => {
+    dispatch({
+      payload: job,
+      type: LIKE_JOB,
+    });
+  };
+
+export const clearLikedJobs =
+  (): ThunkAction<
+    void,
+    DefaultRootState,
+    void,
+    Action<typeof CLEAR_LIKED_JOBS>
+  > =>
+  (dispatch) => {
+    dispatch({
+      type: CLEAR_LIKED_JOBS,
+    });
   };

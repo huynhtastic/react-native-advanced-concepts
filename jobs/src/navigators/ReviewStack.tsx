@@ -1,11 +1,28 @@
+import { NavigationProp, RouteProp } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button } from "react-native-elements";
 import { ReviewScreen, SettingsScreen } from "../screens";
 
-const Stack = createNativeStackNavigator<{
+export type Params = {
   Review: undefined;
   Settings: undefined;
-}>();
+};
+
+type Routes = keyof Params;
+export type ReviewStackNavProp<Route extends Routes = Routes> = NavigationProp<
+  Params,
+  Route
+>;
+type ReviewStackRouteProp<Route extends Routes = Routes> = RouteProp<
+  Params,
+  Route
+>;
+export interface ReviewStackScreenProps<Route extends Routes = Routes> {
+  navigation: ReviewStackNavProp<Route>;
+  route: ReviewStackRouteProp<Route>;
+}
+
+const Stack = createNativeStackNavigator<Params>();
 
 export const ReviewStack = () => {
   return (
